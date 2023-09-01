@@ -28,7 +28,7 @@ namespace CandleApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetItems() 
+        public async Task<IActionResult> GetItems() 
         {
             try {
                 return Ok(await _itemRepository.GetItems());
@@ -41,18 +41,18 @@ namespace CandleApi.Controllers
         }
 
         [HttpGet("{id:Guid}")]
-        public async Task<ActionResult<ItemDto>> GetItem(Guid id)
+        public async Task<IActionResult> GetItem(Guid id)
         {
             try
             {
-                var result = await _itemRepository.GetItem(id);
+                var item = await _itemRepository.GetItem(id);
 
-                if (result == null)
+                if (item == null)
                 {
                     return NotFound();
                 }
 
-                return result;
+                return Ok(item);
             }
             catch (Exception)
             {
@@ -63,11 +63,11 @@ namespace CandleApi.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Administrator")]
-        public async Task<ActionResult<ItemDto>> CreateItem(ItemDto itemDto) 
+        public async Task<IActionResult> CreateItem(ItemDto itemDto) 
         {
             try
             {
-                if (itemDto == null) {
+                if (itemDto == null || itemDto.Name == null) {
                     return BadRequest("Bad data");
                 }
 
@@ -92,7 +92,7 @@ namespace CandleApi.Controllers
 
         [HttpPut("{id:Guid}")]
         [Authorize(Roles = "Administrator")]
-        public async Task<ActionResult<ItemDto>> UpdateItem(Guid id, ItemDto itemDto)
+        public async Task<IActionResult> UpdateItem(Guid id, ItemDto itemDto)
         {
             try
             {
@@ -107,7 +107,7 @@ namespace CandleApi.Controllers
                     return NotFound($"Item with Id = {id} not found");
                 }
 
-                return await _itemRepository.UpdateItem(id, itemDto);
+                return Ok(await _itemRepository.UpdateItem(id, itemDto));
             }
             catch (Exception)
             {
@@ -118,7 +118,7 @@ namespace CandleApi.Controllers
 
         [HttpDelete("/Item/{id}")]
         [Authorize(Roles = "Administrator")]
-        public async Task<ActionResult<Item>> DeleteItem(Guid id)
+        public async Task<IActionResult> DeleteItem(Guid id)
         {
             try
             {
@@ -129,7 +129,8 @@ namespace CandleApi.Controllers
                     return NotFound($"Employee with Id = {id} not found");
                 }
 
-                return await _itemRepository.DeleteItem(id);
+                // Item? item = await _itemRepository.DeleteItem(id);
+                return Ok(await _itemRepository.DeleteItem(id));
             }
             catch (Exception)
             {

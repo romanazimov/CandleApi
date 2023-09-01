@@ -19,16 +19,23 @@ namespace CandleApi.Services
             _configuration = configuration;
         }
 
-        public string GenerateToken(string username)
+        public string GenerateToken(string username, bool isAdmin)
         {
             // Create claims for the user
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name, username),
+                new Claim(ClaimTypes.Role, isAdmin ? "Administrator" : "User"),
                 // You can add additional claims like roles, permissions, etc.
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:Key"]));
+            string? jwtKey = _configuration["JwtSettings:Key"];
+
+            SymmetricSecurityKey securityKey = string.IsNullOrEmpty(jwtKey)
+                ? new SymmetricSecurityKey(Encoding.UTF8.GetBytes("backup_candle_key"))
+                : new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
+
+            var key = securityKey;
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(

@@ -19,18 +19,12 @@ namespace CandleApi.Controllers
     [Route("[controller]")]
     public class UserController : Controller
     {
-        // private readonly AppDbContext _appDbContext;
+        private readonly ILogger<UserController> _logger;
         private readonly IUserRepository _userRepository;
         private readonly ITokenService _tokenService;
 
-        // public UserController(AppDbContext appDbContext, IUserRepository userRepository, ITokenService tokenService) { 
-        //     _appDbContext = appDbContext;
-        //     _userRepository = userRepository;
-        //     _tokenService = tokenService;
-        // }
-
-        public UserController(IUserRepository userRepository, ITokenService tokenService) { 
-            // _appDbContext = appDbContext;
+        public UserController(ILogger<UserController> logger, IUserRepository userRepository, ITokenService tokenService) {
+            _logger = logger;
             _userRepository = userRepository;
             _tokenService = tokenService;
         }
@@ -44,19 +38,6 @@ namespace CandleApi.Controllers
             }
 
             bool created = await _userRepository.CreateNewUser(user);
-
-            // return await _userRepository.CreateNewUser(user);
-
-            // string hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.Password);
-
-            // User newUser = new()
-            // {
-            //     Username = user.Username,
-            //     Password = hashedPassword
-            // };
-
-            // _appDbContext.Users.Add(newUser);
-            // _appDbContext.SaveChanges();
             
             if (!created) {
                 return BadRequest("User already exists.");
@@ -68,34 +49,9 @@ namespace CandleApi.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] User user)
         {
-            // if (user == null) {
-            //     return BadRequest("Invalid username or password.");
-            // }
-
-            // User selectedUser = _appDbContext.Users.FirstOrDefault(u => u.Username == user.Username);
-
-            // if (selectedUser == null)
-            // {
-            //     return BadRequest("Invalid username or password.");
-            // }
-
-            // bool isPasswordCorrect = BCrypt.Net.BCrypt.Verify(user.Password, selectedUser.Password);
-
-            // bool userFound = _userRepository.CheckUsernameExistsAsync(user.Username);
-            // bool isPasswordCorrect = false;
-            // if (userFound) {
-            //     isPasswordCorrect = _userRepository.VerifyUser(user);
-            // }
-
-            // if (isPasswordCorrect) {
-            //     var token = _tokenService.GenerateToken(user.Username);
-            //     return Ok(new {message = "Login successful.", token});
-            // } else {
-            //     return BadRequest("Invalid username or password.");
-            // }
-
-            if (user != null && _userRepository.VerifyUser(user)) {
-                var token = _tokenService.GenerateToken(user.Username);
+            if (user != null && user.Username != null && _userRepository.VerifyUser(user)) {
+                bool isAdmin = _userRepository.CheckAdminStatus(user.Username);
+                var token = _tokenService.GenerateToken(user.Username, isAdmin);
                 return Ok(new {message = "Login successful.", token});
             } else {
                 return BadRequest("Invalid username or password.");
@@ -103,16 +59,11 @@ namespace CandleApi.Controllers
         }
 
         [HttpGet("Test")]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Test() {
             return Ok("It worked");
         }
 
-        // [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        // public IActionResult Error()
-        // {
-        //     return View("Error!");
-        // }
 
         /// <summary>
         /// Retrieves all orders from a specific user
@@ -121,42 +72,6 @@ namespace CandleApi.Controllers
         [HttpGet("Orders/{id}")]
         public IActionResult GetOrdersByUser(Guid id)
         {
-            
-            // bool userFound = _userRepository.CheckUsernameExistsAsync(username);
-            // if (userFound) {
-            //     _userRepository.GetOrdersByUser(username);
-            // }
-            // var user = _appDbContext.Users.FirstOrDefault(u => u.Username == username);
-            // if (user == null) {
-            //     return BadRequest("Invalid username or password.");
-            // }
-
-            // var orders = _appDbContext.Orders
-            //     .Where(o => o.UserId == user.Id)
-            //     .Include(o => o.OrderItems) // Include the OrderItems collection
-            //         .ThenInclude(oi => oi.Item) // Include the associated Item for each OrderItem
-            //     .Select(o => new
-            //     {
-            //         o.OrderId,
-            //         o.OrderDate,
-            //         // ... other order properties
-
-            //         OrderItems = o.OrderItems.Select(oi => new
-            //         {
-            //             oi.OrderItemId,
-            //             oi.Quantity,
-            //             Item = new
-            //             {
-            //                 oi.Item.ItemId,
-            //                 oi.Item.Name,
-            //                 // ... other item properties
-            //             }
-            //         }).ToList()
-            //     })
-            //     .ToList();
-
-            // return Ok(orders);
-            // var orders = _userRepository.GetOrders(id);
             return Ok(_userRepository.GetOrders(id));
         }
     }

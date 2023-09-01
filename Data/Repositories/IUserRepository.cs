@@ -11,6 +11,8 @@ namespace CandleApi.Data.Repositories
         // Task<User> FindUserByIdAsync(Guid id);
         Task<bool> CreateNewUser(User user);
         bool VerifyUser(User user);
-        ICollection<Order> GetOrders(Guid id);
+        //Task<IEnumerable<OrderDto>> GetOrders(Guid id);
+        List<OrderDto> GetOrders(Guid id);
+        bool CheckAdminStatus(string username);
     }
 }

@@ -10,9 +10,9 @@ namespace CandleApi.Data.Repositories
     {
         Task<IEnumerable<ItemDto>> GetItems();
         Task<ItemDto> GetItem(Guid id);
-        Task<Item> GetItemByName(string name);
+        Task<Item?> GetItemByName(string name);
         Task<ItemDto> AddItem(ItemDto itemDto);
         Task<ItemDto> UpdateItem(Guid id, ItemDto item);
-        Task<Item> DeleteItem(Guid id);
+        Task<Item?> DeleteItem(Guid id);
     }
 }

@@ -31,7 +31,7 @@ namespace CandleApi.Data.Repositories
             return _mapper.Map<ItemDto>(item);
         }
 
-        public async Task<Item> GetItemByName(string name) 
+        public async Task<Item?> GetItemByName(string name) 
         {
             var item = await _appDbContext.Items.FirstOrDefaultAsync(i => i.Name == name);
             return item;
@@ -67,13 +67,20 @@ namespace CandleApi.Data.Repositories
             return _mapper.Map<ItemDto>(itemToUpdate);
         }
 
-        public async Task<Item> DeleteItem(Guid id) 
+        public async Task<Item?> DeleteItem(Guid id) 
         {
             var itemToDelete = await _appDbContext.Items.FirstOrDefaultAsync(i => i.ItemId == id);
-            _appDbContext.Items.Remove(itemToDelete);
-            _appDbContext.SaveChanges();
 
-            return itemToDelete;
+            if (itemToDelete != null)
+            {
+                _appDbContext.Items.Remove(itemToDelete);
+                _appDbContext.SaveChanges();
+                return itemToDelete;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

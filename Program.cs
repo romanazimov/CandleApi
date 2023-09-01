@@ -43,6 +43,12 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
 
+string? jwtKey = builder.Configuration["JwtSettings:Key"];
+
+SymmetricSecurityKey securityKey = string.IsNullOrEmpty(jwtKey)
+    ? new SymmetricSecurityKey(Encoding.UTF8.GetBytes("backup_candle_key"))
+    : new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -54,9 +60,10 @@ builder.Services.AddAuthentication(options =>
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["JwtSettings:Issuer"], // Replace with your issuer
-            ValidAudience = builder.Configuration["JwtSettings:Audience"], // Replace with your audience
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"])) // Replace with your secret key
+            ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+            ValidAudience = builder.Configuration["JwtSettings:Audience"],
+            // IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]))
+            IssuerSigningKey = securityKey
         };
     });
 

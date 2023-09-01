@@ -6,17 +6,34 @@
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Data/Repositories/UserRepository.cs">
     <Files>
-      <File FileName="Program.cs" Line="59" Column="43" />
-      <File FileName="WeatherForecast.cs" />
+      <File FileName="Models/ItemDto.cs" Line="18" Column="19" />
+      <File FileName="Models/Item.cs" Line="27" Column="23" />
+      <File FileName="Models/User.cs" Line="10" Column="9" />
+      <File FileName="Services/TokenService.cs" Line="28" Column="77" />
+      <File FileName="Data/Repositories/ItemRepository.cs" Line="28" Column="30" />
+      <File FileName="Data/Repositories/IItemRepository.cs" Line="13" Column="19" />
+      <File FileName="Program.cs" Line="63" Column="27" />
+      <File FileName="Services/ITokenService.cs" Line="10" Column="66" />
+      <File FileName="Data/Repositories/IUserRepository.cs" Line="17" Column="2" />
+      <File FileName="Data/Repositories/UserRepository.cs" Line="89" Column="24" />
+      <File FileName="Models/UserDto.cs" Line="7" Column="46" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="CandleApi" expanded="True">
-            <Node name="CandleApi" expanded="True">
+            <Node name="CandleApi">
               <Node name="Dependencies" expanded="True" />
+              <Node name="Controllers" expanded="True" />
+              <Node name="Data" expanded="True">
+                <Node name="Repositories" expanded="True">
+                  <Node name="UserRepository.cs" selected="True" />
+                </Node>
+              </Node>
+              <Node name="Models" expanded="True" />
+              <Node name="Services" expanded="True" />
             </Node>
           </Node>
         </State>

@@ -7,6 +7,6 @@ namespace CandleApi.Services
 {
     public interface ITokenService
     {
-        public string GenerateToken(string username);
+        public string GenerateToken(string username, bool isAdmin);
     }
 }

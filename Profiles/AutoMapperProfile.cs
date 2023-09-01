@@ -12,6 +12,8 @@ namespace CandleApi.Profiles
         public AutoMapperProfile()
         {
             CreateMap<Item, ItemDto>();
+
+            CreateMap<Order, OrderDto>();
         }
     }
 }
