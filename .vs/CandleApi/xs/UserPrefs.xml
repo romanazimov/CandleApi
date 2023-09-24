@@ -1,43 +1,47 @@
 ﻿<Properties StartupConfiguration="{BF3D8A7C-B8B2-4A46-8778-0B02B01FB3C4}|https">
-  <MonoDevelop.Ide.ItemProperties.CandleApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Data/Repositories/UserRepository.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
     <Files>
-      <File FileName="Models/ItemDto.cs" Line="18" Column="19" />
-      <File FileName="Models/Item.cs" Line="27" Column="23" />
-      <File FileName="Models/User.cs" Line="10" Column="9" />
-      <File FileName="Services/TokenService.cs" Line="28" Column="77" />
-      <File FileName="Data/Repositories/ItemRepository.cs" Line="28" Column="30" />
-      <File FileName="Data/Repositories/IItemRepository.cs" Line="13" Column="19" />
-      <File FileName="Program.cs" Line="63" Column="27" />
-      <File FileName="Services/ITokenService.cs" Line="10" Column="66" />
-      <File FileName="Data/Repositories/IUserRepository.cs" Line="17" Column="2" />
-      <File FileName="Data/Repositories/UserRepository.cs" Line="89" Column="24" />
-      <File FileName="Models/UserDto.cs" Line="7" Column="46" />
+      <File FileName="Models/ItemDto.cs" />
+      <File FileName="Models/Item.cs" />
+      <File FileName="Models/User.cs" />
+      <File FileName="Services/TokenService.cs" />
+      <File FileName="Data/Repositories/ItemRepository.cs" />
+      <File FileName="Data/Repositories/IItemRepository.cs" />
+      <File FileName="Program.cs" Line="95" Column="4" />
+      <File FileName="Services/ITokenService.cs" />
+      <File FileName="Data/Repositories/IUserRepository.cs" />
+      <File FileName="Data/Repositories/UserRepository.cs" Line="84" Column="1" />
+      <File FileName="Models/UserDto.cs" />
+      <File FileName="Controllers/UserController.cs" />
+      <File FileName="Models/OrderDto.cs" />
+      <File FileName="Models/OrderItemDto.cs" />
+      <File FileName="Profiles/AutoMapperProfile.cs" />
+      <File FileName="Models/OrderItem.cs" />
+      <File FileName="Controllers/ItemController.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="CandleApi" expanded="True">
+          <Node name="CandleApi">
             <Node name="CandleApi">
-              <Node name="Dependencies" expanded="True" />
-              <Node name="Controllers" expanded="True" />
               <Node name="Data" expanded="True">
-                <Node name="Repositories" expanded="True">
-                  <Node name="UserRepository.cs" selected="True" />
-                </Node>
+                <Node name="Repositories" expanded="True" />
               </Node>
               <Node name="Models" expanded="True" />
+              <Node name="Profiles" expanded="True" />
               <Node name="Services" expanded="True" />
+              <Node name="Program.cs" selected="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.CandleApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>

@@ -10,6 +10,8 @@ using Microsoft.OpenApi.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
+var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -42,6 +44,10 @@ builder.Services.AddConnections();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
+
+
+// CORS
+builder.Services.AddCors();
 
 string? jwtKey = builder.Configuration["JwtSettings:Key"];
 
@@ -83,5 +89,12 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors(builder =>
+{
+    builder.WithOrigins(new string[] { "http://localhost:5173", "https://localhost:5174" })
+           .AllowAnyMethod()
+           .AllowAnyHeader();
+});
 
 app.Run();
